@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Week - Virtual Tree of Knowledge</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <!-- PapaParse for standard CSV parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Floating Animated Background Circles -->
+        <div class="bg-shape shape-1"></div>
+        <div class="bg-shape shape-2"></div>
+        <div class="bg-shape shape-3"></div>
+
+        <main class="glass-dashboard">
+            <header class="dashboard-header">
+                <div class="logo">
+                    <h1>Cây Tri Thức <span>Book Week</span></h1>
+                </div>
+                <div class="clock" id="clock">00:00:00</div>
+            </header>
+
+            <div class="dashboard-content">
+                <aside class="side-panel glass-card">
+                    <h2>Thống Kê</h2>
+                    <div class="stat-box">
+                        <span class="stat-label">Tổng số sách đã đọc</span>
+                        <span class="stat-value" id="total-books">0</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-label">Cập nhật lúc</span>
+                        <span class="stat-value" id="last-update">Đang tải...</span>
+                    </div>
+
+                    <h3>Hoạt Động Mới Nhất</h3>
+                    <div class="recent-activity" id="recent-activity">
+                        <!-- Activity items generated dynamically -->
+                    </div>
+                </aside>
+
+                <section class="tree-container glass-card">
+                    <!-- Stylized SVG Tree base -->
+                    <svg class="tree-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" preserveAspectRatio="xMidYMax meet">
+                        <g id="tree-trunk" fill="#5D4037">
+                            <path d="M380,800 C380,700 350,600 320,500 C350,550 370,600 390,500 L390,300 C370,400 320,380 250,320 L270,340 C320,380 370,380 395,300 L400,200 L405,300 C430,380 480,380 530,340 L550,320 C480,380 430,400 410,300 L410,500 C430,600 450,550 480,500 C450,600 420,700 420,800 Z" />
+                        </g>
+                    </svg>
+
+                    <!-- Dynamically added leaves will be appended here -->
+                    <div id="leaves-layer"></div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Leaf template (hidden) -->
+    <template id="leaf-template">
+        <div class="leaf">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50,100 C50,100 -20,50 50,0 C120,50 50,100 50,100 Z" class="leaf-shape" />
+            </svg>
+            <div class="leaf-tooltip">
+                <strong class="leaf-author"></strong><br>
+                <span class="leaf-book"></span>
+            </div>
+        </div>
+    </template>
+
+    <script src="script.js"></script>
+</body>
+</html>
