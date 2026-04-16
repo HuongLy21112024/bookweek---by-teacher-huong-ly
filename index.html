@@ -71,6 +71,23 @@
         </div>
     </template>
 
+    <!-- Overlay for Leaf Details Modal -->
+    <div class="modal-overlay" id="leaf-modal">
+        <div class="modal-content glass-card">
+            <button class="close-btn" id="close-modal">&times;</button>
+            <h2 id="modal-name">Tên học sinh</h2>
+            <div class="modal-body">
+                <p><strong>Khối lớp:</strong> <span id="modal-grade"></span></p>
+                <p><strong>Tên sách:</strong> <span id="modal-book"></span></p>
+                <p><strong>Số trang đã đọc:</strong> <span id="modal-pages"></span></p>
+                <div class="modal-impression">
+                    <strong>Điều ấn tượng nhất về cuốn sách:</strong>
+                    <p id="modal-review"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
