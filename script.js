@@ -61,10 +61,15 @@ function processData(data) {
             // 0: Timestamp, 1: Name, 2: Grade, 3: Pages, 4: Book Name, 5: Impression
             const timestamp = row[0];
             const name = row[1] ? row[1].trim() : 'Ẩn danh';
+            const grade = row[2] ? row[2].trim() : 'Chưa rõ';
+            const pages = row[3] ? row[3].trim() : 'Chưa rõ';
             const bookName = row[4] ? row[4].trim() : 'Sách chưa rõ tên';
+            const impression = row[5] ? row[5].trim() : 'Không chia sẻ';
+            
+            const detailedData = { name, grade, pages, bookName, impression };
             
             // Add Leaf to Tree
-            addLeafToTree(name, bookName);
+            addLeafToTree(detailedData);
             
             // Add Activity Log
             addActivitySnippet(name, bookName, timestamp);
@@ -78,14 +83,17 @@ function processData(data) {
 }
 
 // Add Leaf Graphic to SVG Container
-function addLeafToTree(name, bookName) {
+function addLeafToTree(data) {
     // Clone template
     const leafNode = document.importNode(leafTemplate.content, true);
     const leafElement = leafNode.querySelector('.leaf');
     
     // Populate Tooltip
-    leafElement.querySelector('.leaf-author').textContent = name;
-    leafElement.querySelector('.leaf-book').textContent = bookName;
+    leafElement.querySelector('.leaf-author').textContent = data.name;
+    leafElement.querySelector('.leaf-book').textContent = data.bookName;
+    
+    // Add Click listener for Modal
+    leafElement.addEventListener('click', () => openModal(data));
     
     // Assign Random Color variation (1 to 5)
     leafElement.dataset.color = Math.floor(Math.random() * 5) + 1;
@@ -167,3 +175,33 @@ function initApp() {
 
 // Start
 initApp();
+
+// --- Modal Logic ---
+const leafModal = document.getElementById('leaf-modal');
+const closeModalBtn = document.getElementById('close-modal');
+const modalName = document.getElementById('modal-name');
+const modalGrade = document.getElementById('modal-grade');
+const modalBook = document.getElementById('modal-book');
+const modalPages = document.getElementById('modal-pages');
+const modalReview = document.getElementById('modal-review');
+
+function openModal(data) {
+    modalName.textContent = data.name;
+    modalGrade.textContent = data.grade;
+    modalBook.textContent = data.bookName;
+    modalPages.textContent = data.pages;
+    modalReview.textContent = data.impression || 'Không chia sẻ';
+    
+    leafModal.classList.add('show');
+}
+
+closeModalBtn.addEventListener('click', () => {
+    leafModal.classList.remove('show');
+});
+
+// Click outside modal to close
+leafModal.addEventListener('click', (e) => {
+    if (e.target === leafModal) {
+        leafModal.classList.remove('show');
+    }
+});
